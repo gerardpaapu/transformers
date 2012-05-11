@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <script type="text/javascript" src="../src/transform.js" ></script>
+        <script type="text/javascript" src="../src/transformer.js"></script>
+        <script type="text/javascript" src="mootools-core-1.4.5-full-compat.js"></script>
+        <script type="text/javascript" src="../src/moo.js"></script>
+        <script type="text/javascript" src="runtests.js"></script>
+        <style>
+            html, body {
+                background: black;
+                margin: 0;
+                padding: 10px;
+            }
+
+            #stage {
+                width: 600px;
+                height: 400px;
+                padding: 0;
+                background: white;
+                position: relative;
+                margin: 10px auto;
+            }
+
+            #object1 {
+                width: 40px;
+                height: 40px;
+                background: green;
+                color: white;
+                font-weight: bold;
+                font-size: 30px;
+                overflow: hidden;
+                position:absolute;
+                top: 0; left: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="stage">
+            <div id="object1"></div>
+        </div>
+    </body>
+</html>
