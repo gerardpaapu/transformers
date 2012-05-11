@@ -29,13 +29,35 @@ var Transformers = Transformers || {};
 
         initialize: function (element, options) {
             this.element = $(element);
-            this.transformer = new Moo(this.element);
+            var dimensions = this.element.getCoordinates();
+            this.transformer = new Transformer(null, dimensions.width, dimensions.height);
             this.updateTransform = options.transformer || function () {};
             this.parent(options);
+
+            var positioning = this.element.getStyles('top', 'left');
+
+            // If the element is positioned, we need to remove
+            // that positioning because it will be overridden
+            if (positioning.top != null || positioning.left != null) {
+                this.element.setStyles({ top: 0, left: 0 });
+                this.transformer.translate(positioning.left || 0,
+                                           positioning.top || 0);
+                this.renderTransform();
+            }
+
+        },
+
+        renderTransform: function () {
+            if (Browser.ie) {
+                this.element.setStyles(this.transformer.getStylesForIE());
+            } else {
+                this.element.setStyles(this.transformer.getStyles());
+            }
         },
 
         set: function (t) {
-            this.updateTransform.call(this.transformer);
+            this.updateTransform.call(this.transformer, t);
+            this.renderTransform();
         }
     });
 }.call(null));
