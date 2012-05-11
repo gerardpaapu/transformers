@@ -25,6 +25,12 @@ var Transformers = Transformers || {};
         }
     };
 
+    Transformer.prototype.clear = function () {
+        this.transform = Transform.identity();
+        this.apply(Transform.identity());
+        return this;
+    };
+
     Transformer.prototype.rotate = function (theta) {
         return this.apply(Transform.rotation(theta, this.origin));
     };

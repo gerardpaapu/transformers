@@ -22,4 +22,20 @@ var Transformers = Transformers || {};
         }
         return this;
     };
+
+    Fx.Transformer = new Class({
+        // A class for animating transformer effects
+        Extends: Fx,
+
+        initialize: function (element, options) {
+            this.element = $(element);
+            this.transformer = new Moo(this.element);
+            this.updateTransform = options.transformer || function () {};
+            this.parent(options);
+        },
+
+        set: function (t) {
+            this.updateTransform.call(this.transformer);
+        }
+    });
 }.call(null));

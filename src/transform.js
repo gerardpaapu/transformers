@@ -144,8 +144,8 @@ var Transformers = Transformers || {};
                               0, y, 0);
 
         if (origin == null  ||
-            origin.x === 0 &&
-            origin.y === 0) {
+            (origin.x === 0 &&
+             origin.y === 0)) {
             return T;
         } else {
             return withOrigin(origin, T);
