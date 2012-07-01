@@ -61,6 +61,6 @@ var Transformers = Transformers || {};
         return {
             filter: filter,
             '-ms-filter': '"' + filter + '"'
-        }
+        };
     };
 }.call(null));
