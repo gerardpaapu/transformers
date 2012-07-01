@@ -15,7 +15,7 @@ var Transformers = Transformers || {};
     Moo.prototype = new Transformer();
     Moo.prototype.apply = function () {
         Transformer.prototype.apply.apply(this, arguments);
-        if (Browser.ie) {
+        if (Browser.ie && Browser.version <= 9) {
             this.element.setStyles(this.getStylesForIE());
         } else {
             this.element.setStyles(this.getStyles());
