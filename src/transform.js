@@ -9,8 +9,8 @@ var Transformers = Transformers || {};
     //
     // And Points are represented as 3x1 matrices:
     //
-    //      [.x,
-    //       .y,
+    //      [[x],
+    //       [y],
     //       [1]]
     //
     // Because the bottom row is constant, we will omit it.
@@ -19,8 +19,6 @@ var Transformers = Transformers || {};
     //
     //      {a, b, c, d, tx, ty}
     //      {x, y}
-    //
-    // As such, our constructor simply returns an array
     var Transform = function (a, b, tx,
                               c, d, ty) {
         this.a = a || 0;
@@ -58,7 +56,7 @@ var Transformers = Transformers || {};
         // B(a, b, tx) * A(b, d, 0)
         R.b  = B.a * A.b  + B.b * A.d; // + 0 * B.ty
         // B(a, b, tx) * A(tx, ty, 1)
-        R.tx = B.a * A.tx + B.b * A.ty + 1 * B.tx;
+        R.tx = B.a * A.tx + B.b * A.ty + B.tx;
 
         // B(c, d, ty) * A(a, c, 0)
         R.c  = B.c * A.a  + B.d * A.c; // + 0 * B.ty
