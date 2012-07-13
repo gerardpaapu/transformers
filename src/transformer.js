@@ -62,47 +62,6 @@ var Transformers = Transformers || {};
     };
 
     Transformer.prototype.getStylesForIE = function () {
-        var offset = this.getTopLeftCorner(),
-            filters = this.transform.getIEFilters();
-
-        return {
-            filter: filters.filter,
-            '-ms-filter': filters['-ms-filter'],
-            top: offset.top,
-            left: offset.left
-        };
-    };
-
-    Transformer.prototype.getTopLeftCorner = function () {
-        // IE positions transformed elements to the
-        // top left corner of their bounding box
-        var corners = [
-            this.getPoint(0, 0),
-            this.getPoint(this.width, 0),
-            this.getPoint(this.width, this.height),
-            this.getPoint(0, this.height)
-        ];
-
-        var top, left, x = 0, y = 1;
-
-        top = Math.min(
-            corners[0].y, 
-            corners[1].y,
-            corners[2].y,
-            corners[3].y
-        );
-
-        left = Math.min(
-            corners[0].x, 
-            corners[1].x,
-            corners[2].x, 
-            corners[3].x
-        );
-
-        return {
-            // these are pixel values
-            top: Math.round(top),
-            left: Math.round(left)
-        };
+        return this.transform.getStylesForIE(this.width, this.height);
     };
 }.call(null));

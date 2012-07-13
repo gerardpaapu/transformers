@@ -1,6 +1,7 @@
 var Transformers = Transformers || {};
-(function (){
-    var Transform = Transformers.Transform;
+(function () {
+    var Transform = Transformers.Transform,
+        Point = Transformers.Point;
 
     Transform.prototype.getCSSValues = function () {
         return [
@@ -55,12 +56,44 @@ var Transformers = Transformers || {};
         return styles;
     };
 
-    Transform.prototype.getIEFilters = function () {
-        var filter = this.getCSSFilter();
+    Transform.prototype.getStylesForIE = function (width, height) {
+        var filter = this.getCSSFilter(),
+            offset = this.getOffset(width, height);
         
         return {
             filter: filter,
-            '-ms-filter': '"' + filter + '"'
+            '-ms-filter': '"' + filter + '"',
+            top: offset.y,
+            left: offset.x
         };
+    };
+
+    Transform.prototype.getOffset = function (width, height) {
+        // IE positions transformed elements to the
+        // top left corner of their bounding box
+        var corners = [
+            this.apply(new Point(0, 0)),
+            this.apply(new Point(width, 0)),
+            this.apply(new Point(width, height)),
+            this.apply(new Point(0, height))
+        ];
+
+        var top, left, x = 0, y = 1;
+
+        top = Math.min(
+            corners[0].y, 
+            corners[1].y,
+            corners[2].y,
+            corners[3].y
+        );
+
+        left = Math.min(
+            corners[0].x, 
+            corners[1].x,
+            corners[2].x, 
+            corners[3].x
+        );
+
+        return new Point(left, top);
     };
 }.call(null));
